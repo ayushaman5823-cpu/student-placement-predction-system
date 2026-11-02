@@ -1,0 +1,11 @@
+{
+  "name": "student-placement-prediction-system",
+  "version": "2.0.0",
+  "private": true,
+  "description": "Student Placement Prediction System — SRM Institute of Science and Technology",
+  "scripts": {
+    "dev": "cd frontend && npm run dev",
+    "build": "cd frontend && npm install && npm run build",
+    "preview": "cd frontend && npm run preview"
+  }
+}

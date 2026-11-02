@@ -1,0 +1,6 @@
+# Development and testing requirements
+-r requirements.txt
+pytest>=8.0.0
+matplotlib>=3.8.0
+seaborn>=0.13.0
+httpx>=0.27.0

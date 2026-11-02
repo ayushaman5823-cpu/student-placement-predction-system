@@ -1,0 +1,6 @@
+Branch,College_Tier,10th_Percentage,12th_Percentage,Current_CGPA,Backlogs,Attendance_Percentage,Projects,Internships
+CSE,Tier 1,92.0,90.0,9.20,0,92.0,4,2
+ECE,Tier 2,75.0,74.0,7.60,1,82.0,2,1
+Civil,Tier 3,58.0,56.0,5.80,2,78.0,1,0
+IT,Tier 2,74.0,72.0,7.20,5,80.0,2,1
+Mechanical,Tier 3,82.0,80.0,8.40,0,88.0,3,1

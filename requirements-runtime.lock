@@ -1,0 +1,14 @@
+# Exact runtime lockfile for Student Placement Prediction System (Python 3.12.4)
+# Direct runtime dependencies
+joblib==1.5.3
+numpy==2.5.2
+pandas==3.0.5
+scikit-learn==1.9.0
+scipy==1.18.0
+
+# Transitive runtime dependencies
+narwhals==2.24.0
+python-dateutil==2.9.0.post0
+six==1.17.0
+threadpoolctl==3.6.0
+tzdata==2026.3

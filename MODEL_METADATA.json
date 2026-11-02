@@ -1,0 +1,150 @@
+{
+  "metadata_schema_version": "2.0.0",
+  "project_name": "Student Placement Prediction System",
+  "institution": "SRM Institute of Science and Technology",
+  "model_artifact": {
+    "relative_path": "models/best_model.pkl",
+    "format": "joblib serialized scikit-learn Pipeline",
+    "file_size_bytes": 139762,
+    "observed_sha256": "7330783a64173b5dadb941cc4c1342b9d89733dd63c951e151705e52a2acca17",
+    "reference_sha256": "7330783a64173b5dadb941cc4c1342b9d89733dd63c951e151705e52a2acca17",
+    "hash_match_status": "VERIFIED_EXACT_MATCH",
+    "model_artifact_identifier": "7330783a64173b5dadb941cc4c1342b9d89733dd63c951e151705e52a2acca17"
+  },
+  "pipeline_architecture": {
+    "pipeline_class": "sklearn.pipeline.Pipeline",
+    "steps": [
+      {
+        "name": "preprocessor",
+        "transformer_class": "sklearn.compose._column_transformer.ColumnTransformer",
+        "transformers": [
+          {
+            "name": "cat",
+            "type": "sklearn.preprocessing._encoders.OneHotEncoder",
+            "handle_unknown": "ignore",
+            "sparse_output": false,
+            "columns": ["Branch", "College_Tier"],
+            "categories": {
+              "Branch": ["AI/ML", "Biotechnology", "CSE", "Chemical", "Civil", "Data Science", "ECE", "EEE", "IT", "Mechanical"],
+              "College_Tier": ["Tier 1", "Tier 2", "Tier 3"]
+            }
+          },
+          {
+            "name": "num",
+            "type": "sklearn.preprocessing._data.StandardScaler",
+            "columns": [
+              "10th_Percentage",
+              "12th_Percentage",
+              "Current_CGPA",
+              "Backlogs",
+              "Attendance_Percentage",
+              "Projects",
+              "Internships"
+            ]
+          }
+        ]
+      },
+      {
+        "name": "classifier",
+        "estimator_class": "sklearn.ensemble._gb.GradientBoostingClassifier",
+        "n_classes": 2,
+        "class_codes": [0, 1],
+        "class_labels": ["Not Placed", "Placed"]
+      }
+    ]
+  },
+  "input_contract": {
+    "feature_count": 9,
+    "ordered_feature_names": [
+      "Branch",
+      "College_Tier",
+      "10th_Percentage",
+      "12th_Percentage",
+      "Current_CGPA",
+      "Backlogs",
+      "Attendance_Percentage",
+      "Projects",
+      "Internships"
+    ],
+    "unauthorized_columns_explicitly_excluded": [
+      "Student_ID",
+      "Name",
+      "Gender",
+      "College_Name",
+      "Placement_Probability"
+    ]
+  },
+  "benchmarked_algorithms": {
+    "total_candidate_models_evaluated": 7,
+    "model_families": [
+      "Gradient Boosting",
+      "Random Forest",
+      "XGBoost",
+      "Support Vector Machine",
+      "Decision Tree",
+      "K-Nearest Neighbors",
+      "Logistic Regression"
+    ],
+    "selection_criterion": "Stratified 5-Fold Cross-Validation on 4,000 training records, ranked by F1-Score, ROC-AUC, Recall, Precision, Accuracy."
+  },
+  "evaluation_context": {
+    "benchmark_dataset_size": 5000,
+    "split_policy": "Stratified 80/20 train/test (random_state=42)",
+    "holdout_test_metrics": {
+      "accuracy": 0.8310,
+      "precision": 0.8276,
+      "recall": 0.9019,
+      "f1_score": 0.8632,
+      "roc_auc": 0.9036,
+      "brier_score": 0.1158
+    },
+    "confusion_matrix": {
+      "true_negatives": 298,
+      "false_positives": 111,
+      "false_negatives": 58,
+      "true_positives": 533
+    },
+    "note": "Metrics reflect evaluation on synthetic/augmented project dataset and should not be interpreted as real-world institutional placement prediction accuracy."
+  },
+  "feature_importance_methodology": {
+    "gini_impurity_importance": "Calculated natively from Mean Decrease in Impurity across decision tree splits in the Gradient Boosting ensemble. Aggregated back to 9 original features after one-hot encoding.",
+    "permutation_importance": "Measures holdout test performance degradation when a specific feature is randomly shuffled. Retained as an independent audited methodology."
+  },
+  "probability_and_confidence_semantics": {
+    "probability_placed": "model.predict_proba() output for class 1 (Placed) expressed as percentage (0.0% to 100.0%).",
+    "probability_not_placed": "model.predict_proba() output for class 0 (Not Placed) expressed as percentage (0.0% to 100.0%).",
+    "confidence_score": "Defined strictly as max(probability_placed, probability_not_placed). Represents the highest class probability returned by the model, not a calibrated statistical confidence interval, Bayesian certainty, or guaranteed job offer."
+  },
+  "sample_profile_verification": {
+    "profile_1_strong": {"status": "Placed", "probability_placed": 97.05, "probability_not_placed": 2.95},
+    "profile_2_average": {"status": "Placed", "probability_placed": 90.64, "probability_not_placed": 9.36},
+    "profile_3_weak": {"status": "Not Placed", "probability_placed": 3.60, "probability_not_placed": 96.40},
+    "profile_4_high_backlog": {
+      "status": "Not Placed",
+      "probability_placed": 43.42,
+      "probability_not_placed": 56.58,
+      "reconciliation_note": "Verified directly with frozen pipeline models/best_model.pkl. Earlier 4.76% report placeholder was superseded by verified 43.42% output."
+    },
+    "profile_5_tier_3_strong": {"status": "Placed", "probability_placed": 94.87, "probability_not_placed": 5.13}
+  },
+  "runtime_environment": {
+    "tested_python_version": "3.12.4",
+    "scikit_learn_version": "1.9.0",
+    "numpy_version": "2.5.2",
+    "pandas_version": "3.0.5",
+    "scipy_version": "1.18.0",
+    "joblib_version": "1.5.3"
+  },
+  "optional_dependencies": {
+    "requirements_file": "requirements-optional-ml.txt",
+    "xgboost_version": "3.4.0",
+    "purpose": "Optional offline training and historical benchmarking experiments. Not required for runtime prediction or terminal application."
+  },
+  "model_integrity_verification": {
+    "status": "VERIFIED",
+    "custom_transformer_required": false,
+    "deserialization_test": "PASSED",
+    "inference_contract_test": "PASSED",
+    "notes": "No custom transformer class required; standard scikit-learn primitives only. Deserializes cleanly."
+  }
+}

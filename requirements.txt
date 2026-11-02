@@ -1,0 +1,9 @@
+# Compatibility dependency specification for Student Placement Prediction System
+# For exact pinned installation, use requirements-runtime.lock
+joblib>=1.3.0
+numpy>=1.26.0,<3.0.0
+pandas>=2.0.0,<4.0.0
+scikit-learn>=1.4.0,<2.0.0
+scipy>=1.13.0
+fastapi>=0.110.0
+uvicorn>=0.28.0

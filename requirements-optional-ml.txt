@@ -1,0 +1,16 @@
+# =============================================================================
+# OPTIONAL MACHINE LEARNING DEPENDENCIES
+# Student Placement Prediction System — SRM Institute of Science and Technology
+#
+# These packages are ONLY required for offline retraining, model comparison,
+# or historical benchmarking experiments (e.g., executing train_pipeline.py).
+#
+# THEY ARE NOT REQUIRED FOR NORMAL RUNTIME PREDICTION OR THE TERMINAL APPLICATION.
+# Production inference uses standard scikit-learn components pinned in requirements.txt.
+#
+# Installation (only if running offline model benchmarking):
+#     pip install -r requirements-optional-ml.txt
+# =============================================================================
+
+xgboost==3.4.0
+

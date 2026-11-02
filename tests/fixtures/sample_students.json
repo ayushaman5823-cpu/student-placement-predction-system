@@ -1,0 +1,77 @@
+[
+  {
+    "profile_id": "profile_1_strong",
+    "description": "High academic performer with Tier 1 college and multiple projects",
+    "features": {
+      "Branch": "CSE",
+      "College_Tier": "Tier 1",
+      "10th_Percentage": 92.0,
+      "12th_Percentage": 90.0,
+      "Current_CGPA": 9.20,
+      "Backlogs": 0,
+      "Attendance_Percentage": 92.0,
+      "Projects": 4,
+      "Internships": 2
+    }
+  },
+  {
+    "profile_id": "profile_2_average",
+    "description": "Average academic performer from Tier 2 college",
+    "features": {
+      "Branch": "ECE",
+      "College_Tier": "Tier 2",
+      "10th_Percentage": 75.0,
+      "12th_Percentage": 74.0,
+      "Current_CGPA": 7.60,
+      "Backlogs": 1,
+      "Attendance_Percentage": 82.0,
+      "Projects": 2,
+      "Internships": 1
+    }
+  },
+  {
+    "profile_id": "profile_3_weak_academics",
+    "description": "Lower marks and Tier 3 college",
+    "features": {
+      "Branch": "Civil",
+      "College_Tier": "Tier 3",
+      "10th_Percentage": 58.0,
+      "12th_Percentage": 56.0,
+      "Current_CGPA": 5.80,
+      "Backlogs": 2,
+      "Attendance_Percentage": 78.0,
+      "Projects": 1,
+      "Internships": 0
+    }
+  },
+  {
+    "profile_id": "profile_4_high_backlogs",
+    "description": "Multiple active backlogs (max value 5)",
+    "features": {
+      "Branch": "IT",
+      "College_Tier": "Tier 2",
+      "10th_Percentage": 74.0,
+      "12th_Percentage": 72.0,
+      "Current_CGPA": 7.20,
+      "Backlogs": 5,
+      "Attendance_Percentage": 80.0,
+      "Projects": 2,
+      "Internships": 1
+    }
+  },
+  {
+    "profile_id": "profile_5_tier3_strong",
+    "description": "Strong academics despite Tier 3 college",
+    "features": {
+      "Branch": "Mechanical",
+      "College_Tier": "Tier 3",
+      "10th_Percentage": 82.0,
+      "12th_Percentage": 80.0,
+      "Current_CGPA": 8.40,
+      "Backlogs": 0,
+      "Attendance_Percentage": 88.0,
+      "Projects": 3,
+      "Internships": 1
+    }
+  }
+]
