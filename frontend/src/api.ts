@@ -1,8 +1,11 @@
 import type { StudentInput, PredictionResult, ModelInfo, SampleProfile, HistoryRecord } from './types';
 
-const API_BASE = (import.meta as any).env?.VITE_API_URL 
-  ? `${(import.meta as any).env.VITE_API_URL}/api` 
-  : '/api';
+// Resolves Vercel service binding (API_URL), custom environment override (VITE_API_URL), or default relative path (/api)
+const API_BASE = (import.meta as any).env?.API_URL 
+  ? `${(import.meta as any).env.API_URL}/api`
+  : (import.meta as any).env?.VITE_API_URL 
+    ? `${(import.meta as any).env.VITE_API_URL}/api` 
+    : '/api';
 
 export async function checkHealth(): Promise<{ status: string; model_artifact_sha256?: string }> {
   try {

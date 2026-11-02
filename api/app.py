@@ -13,7 +13,7 @@ import os
 import sys
 import json
 from typing import Dict, Any, List, Optional
-from fastapi import FastAPI, HTTPException, Query, status
+from fastapi import FastAPI, APIRouter, HTTPException, Query, status
 from fastapi.middleware.cors import CORSMiddleware
 from pydantic import BaseModel, Field, field_validator
 
@@ -52,6 +52,8 @@ app.add_middleware(
     allow_methods=["*"],
     allow_headers=["*"],
 )
+
+router = APIRouter()
 
 # Pydantic Request Models
 class StudentInputSchema(BaseModel):
@@ -93,7 +95,7 @@ def load_metadata_dict() -> Dict[str, Any]:
     return {}
 
 
-@app.get("/api/health")
+@router.get("/health")
 def health_check():
     """Health check endpoint to verify service and model status."""
     return {
@@ -105,7 +107,7 @@ def health_check():
     }
 
 
-@app.get("/api/model/info")
+@router.get("/model/info")
 def get_model_info():
     """
     Returns complete model architecture details, authoritative holdout metrics,
@@ -151,7 +153,7 @@ def get_model_info():
     }
 
 
-@app.get("/api/sample-profiles")
+@router.get("/sample-profiles")
 def get_sample_profiles():
     """Returns the 5 verified student profiles with pre-computed reference predictions."""
     profiles = [
@@ -249,7 +251,7 @@ def get_sample_profiles():
     return {"status": "success", "data": profiles}
 
 
-@app.post("/api/predict")
+@router.post("/predict")
 def predict(payload: StudentInputSchema):
     """
     Predicts student placement status and class probabilities from raw feature values.
@@ -305,7 +307,7 @@ def predict(payload: StudentInputSchema):
     }
 
 
-@app.get("/api/history")
+@router.get("/history")
 def get_prediction_history(limit: int = Query(50, ge=1, le=200), offset: int = Query(0, ge=0)):
     """Retrieves stored predictions from SQLite in reverse chronological order."""
     try:
@@ -319,7 +321,7 @@ def get_prediction_history(limit: int = Query(50, ge=1, le=200), offset: int = Q
         raise HTTPException(status_code=status.HTTP_500_INTERNAL_SERVER_ERROR, detail=f"Database error: {str(e)}")
 
 
-@app.delete("/api/history")
+@router.delete("/history")
 def clear_prediction_history():
     """Safely clears prediction history records (useful for demo resets)."""
     try:
@@ -327,6 +329,11 @@ def clear_prediction_history():
         return {"status": "success", "message": "Prediction history cleared successfully."}
     except Exception as e:
         raise HTTPException(status_code=status.HTTP_500_INTERNAL_SERVER_ERROR, detail=f"Database error: {str(e)}")
+
+
+# Register all routes with both /api prefix and root prefix
+app.include_router(router, prefix="/api")
+app.include_router(router, prefix="")
 
 
 if __name__ == "__main__":
