@@ -17,3 +17,4 @@ if SRC_DIR not in sys.path:
 
 # Import the FastAPI application instance
 from api.app import app
+
